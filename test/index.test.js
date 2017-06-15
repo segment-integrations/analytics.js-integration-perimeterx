@@ -11,7 +11,7 @@ describe('Perimeterx', function() {
   var perimeterx;
   var options = {
     appId: '', // FIXME test appId account
-    customTraits: [] //FIXME test custom traits
+    customTraits: {} //FIXME test custom traits
   };
 
   beforeEach(function() {
@@ -32,7 +32,7 @@ describe('Perimeterx', function() {
   it('should have the correct options', function() {
     analytics.compare(Perimeterx, integration('Perimeterx')
     .option('appId', '')
-    .option('customTraits', []);
+    .option('customTraits', {});
   });
 
   describe('before loading', function() {
