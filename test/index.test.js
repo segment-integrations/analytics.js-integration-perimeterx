@@ -11,12 +11,14 @@ describe('Perimeterx', function() {
   var perimeterx;
   var options = {
     appId: '', // FIXME test appId account
-    customTraits: {} //FIXME test custom traits
+    customTraits: {
+      'perimeterxCustomParameter': 'segmentTrait'
+    } // FIXME test custom traits
   };
 
   beforeEach(function() {
     analytics = new Analytics();
-    integration_name = new Perimeterx(options);
+    perimeterx = new Perimeterx(options);
     analytics.use(integrationTester);
     analytics.use(Perimeterx);
     analytics.add(perimeterx);
@@ -32,31 +34,31 @@ describe('Perimeterx', function() {
   it('should have the correct options', function() {
     analytics.compare(Perimeterx, integration('Perimeterx')
     .option('appId', '')
-    .option('customTraits', {});
+    .option('customTraits', {}));
   });
 
-  describe('before loading', function() {
+  describe.skip('before loading', function() {
     beforeEach(function() {
-      analytics.stub(integration_name, 'load'); // FIXME
+      analytics.stub(perimeterx, 'load'); // FIXME
     });
 
-    describe('#initialize', function() {
+    describe.skip('#initialize', function() {
       // write assertions here if you do any logic to create or set things in the `.initialize()` function
 
       it('should call load', function() {
         analytics.initialize();
-        analytics.called(castle.load);
+        analytics.called(perimeterx.load);
       });
     });
   });
 
-  describe('loading', function() {
+  describe.skip('loading', function() {
     it('should load', function(done) {
-      analytics.load(integration_name, done); // FIXME
+      analytics.load(perimeterx, done); // FIXME
     });
   });
 
-  describe('after loading', function() {
+  describe.skip('after loading', function() {
     beforeEach(function(done) {
       analytics.once('ready', done);
       analytics.initialize();
