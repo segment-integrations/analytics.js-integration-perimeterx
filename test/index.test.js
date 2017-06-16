@@ -12,7 +12,7 @@ describe('Perimeterx', function() {
   var options = {
     appId: '', // FIXME test appId account
     customTraits: {
-      'perimeterxCustomParameter': 'segmentTrait'
+      perimeterxCustomParameter: 'segmentTrait'
     } // FIXME test custom traits
   };
 
