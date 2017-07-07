@@ -10,10 +10,10 @@ describe('Perimeterx', function() {
   var analytics;
   var perimeterx;
   var options = {
-    appId: '', // FIXME test appId account
+    appId: 'PXjnWXHw7F',
     customTraits: {
-      perimeterxCustomParameter: 'segmentTrait'
-    } // FIXME test custom traits
+      perimeterxCustomParameter1: 'segmentTrait'
+    }
   };
 
   beforeEach(function() {
@@ -24,27 +24,30 @@ describe('Perimeterx', function() {
     analytics.add(perimeterx);
   });
 
-  afterEach(function() {
-    analytics.restore();
-    analytics.reset();
-    perimeterx.reset();
+  afterEach(function(done) {
+    analytics.waitForScripts(function() {
+      analytics.restore();
+      analytics.reset();
+      perimeterx.reset();
+      done();
+    });
+
     sandbox();
   });
 
   it('should have the correct options', function() {
     analytics.compare(Perimeterx, integration('Perimeterx')
-    .option('appId', '')
-    .option('customTraits', {}));
+      .option('appId', '')
+      .option('customTraits', {}));
   });
 
-  describe.skip('before loading', function() {
+  describe('before loading', function() {
     beforeEach(function() {
-      analytics.stub(perimeterx, 'load'); // FIXME
+      analytics.stub(perimeterx, 'load');
     });
 
-    describe.skip('#initialize', function() {
+    describe('#initialize', function() {
       // write assertions here if you do any logic to create or set things in the `.initialize()` function
-
       it('should call load', function() {
         analytics.initialize();
         analytics.called(perimeterx.load);
@@ -54,7 +57,16 @@ describe('Perimeterx', function() {
 
   describe.skip('loading', function() {
     it('should load', function(done) {
-      analytics.load(perimeterx, done); // FIXME
+      analytics.load(perimeterx, done);
+    });
+  });
+
+  describe('loaded', function() {
+    it('should have window._pxAppID', function() {
+      analytics.assert(typeof window._pxAppId === 'string');
+    });
+    it('should have window._pxAppID_asyncInit', function() {
+      analytics.assert(typeof window[perimeterx.options.appId + '_asyncInit'] === 'function');
     });
   });
 
