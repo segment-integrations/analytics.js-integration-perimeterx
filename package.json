@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/segment-integrations/analytics.js-integration-perimeterx#readme",
   "dependencies": {
+    "@ndhoule/each": "^2.0.1",
     "@segment/analytics.js-integration": "^3.2.0"
   },
   "devDependencies": {

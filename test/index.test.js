@@ -12,7 +12,7 @@ describe('Perimeterx', function() {
   var options = {
     appId: 'PXjnWXHw7F',
     customTraits: {
-      perimeterxCustomParameter1: 'segmentTrait'
+      _pxParam1: 'segmentTrait'
     }
   };
 
@@ -24,14 +24,10 @@ describe('Perimeterx', function() {
     analytics.add(perimeterx);
   });
 
-  afterEach(function(done) {
-    analytics.waitForScripts(function() {
-      analytics.restore();
-      analytics.reset();
-      perimeterx.reset();
-      done();
-    });
-
+  afterEach(function() {
+    analytics.restore();
+    analytics.reset();
+    perimeterx.reset();
     sandbox();
   });
 
@@ -47,7 +43,6 @@ describe('Perimeterx', function() {
     });
 
     describe('#initialize', function() {
-      // write assertions here if you do any logic to create or set things in the `.initialize()` function
       it('should call load', function() {
         analytics.initialize();
         analytics.called(perimeterx.load);
@@ -55,7 +50,7 @@ describe('Perimeterx', function() {
     });
   });
 
-  describe.skip('loading', function() {
+  describe('loading', function() {
     it('should load', function(done) {
       analytics.load(perimeterx, done);
     });
@@ -70,10 +65,17 @@ describe('Perimeterx', function() {
     });
   });
 
-  describe.skip('after loading', function() {
+  describe('after loading', function() {
     beforeEach(function(done) {
       analytics.once('ready', done);
       analytics.initialize();
+    });
+
+    describe('#identify', function() {
+      it('should set custom parameters', function() {
+        analytics.identify('id', { segmentTrait: 'hey' });
+        analytics.equal(window._pxParam1, 'hey');
+      });
     });
   });
 });
