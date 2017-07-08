@@ -10,10 +10,10 @@ describe('Perimeterx', function() {
   var analytics;
   var perimeterx;
   var options = {
-    appId: '', // FIXME test appId account
+    appId: 'PXjnWXHw7F',
     customTraits: {
-      perimeterxCustomParameter: 'segmentTrait'
-    } // FIXME test custom traits
+      _pxParam1: 'segmentTrait'
+    }
   };
 
   beforeEach(function() {
@@ -33,18 +33,16 @@ describe('Perimeterx', function() {
 
   it('should have the correct options', function() {
     analytics.compare(Perimeterx, integration('Perimeterx')
-    .option('appId', '')
-    .option('customTraits', {}));
+      .option('appId', '')
+      .option('customTraits', {}));
   });
 
-  describe.skip('before loading', function() {
+  describe('before loading', function() {
     beforeEach(function() {
-      analytics.stub(perimeterx, 'load'); // FIXME
+      analytics.stub(perimeterx, 'load');
     });
 
-    describe.skip('#initialize', function() {
-      // write assertions here if you do any logic to create or set things in the `.initialize()` function
-
+    describe('#initialize', function() {
       it('should call load', function() {
         analytics.initialize();
         analytics.called(perimeterx.load);
@@ -52,16 +50,32 @@ describe('Perimeterx', function() {
     });
   });
 
-  describe.skip('loading', function() {
+  describe('loading', function() {
     it('should load', function(done) {
-      analytics.load(perimeterx, done); // FIXME
+      analytics.load(perimeterx, done);
     });
   });
 
-  describe.skip('after loading', function() {
+  describe('loaded', function() {
+    it('should have window._pxAppID', function() {
+      analytics.assert(typeof window._pxAppId === 'string');
+    });
+    it('should have window._pxAppID_asyncInit', function() {
+      analytics.assert(typeof window[perimeterx.options.appId + '_asyncInit'] === 'function');
+    });
+  });
+
+  describe('after loading', function() {
     beforeEach(function(done) {
       analytics.once('ready', done);
       analytics.initialize();
+    });
+
+    describe('#identify', function() {
+      it('should set custom parameters', function() {
+        analytics.identify('id', { segmentTrait: 'hey' });
+        analytics.equal(window._pxParam1, 'hey');
+      });
     });
   });
 });
