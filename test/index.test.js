@@ -50,6 +50,13 @@ describe('Perimeterx', function() {
     });
   });
 
+  describe('identify call', function() {
+    it('should make an identify call on initialize', function(done) {
+      analytics.on('identify', function() { done(); });
+      analytics.initialize();
+    });
+  });
+
   describe('loading', function() {
     it('should load', function(done) {
       analytics.load(perimeterx, done);
@@ -58,9 +65,11 @@ describe('Perimeterx', function() {
 
   describe('loaded', function() {
     it('should have window._pxAppID', function() {
+      analytics.initialize();
       analytics.assert(typeof window._pxAppId === 'string');
     });
     it('should have window._pxAppID_asyncInit', function() {
+      analytics.initialize();
       analytics.assert(typeof window[perimeterx.options.appId + '_asyncInit'] === 'function');
     });
   });
