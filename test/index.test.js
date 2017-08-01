@@ -12,7 +12,7 @@ describe('Perimeterx', function() {
   var options = {
     appId: 'PXjnWXHw7F',
     customTraits: {
-      _pxParam1: 'segmentTrait'
+      segmentTrait: '_pxParam1'
     }
   };
 
