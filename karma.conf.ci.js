@@ -33,21 +33,12 @@ var customLaunchers = {
     browserName: 'safari',
     version: '9.0'
   },
-  sl_ie_7: {
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    version: '7'
-  },
-  sl_ie_8: {
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    version: '8'
-  },
-  sl_ie_9: {
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    version: '9'
-  },
+  // (anoonan): perimeterx said their JS tag supports IE9, but not in this case with the pub/sub event that passes the score
+  // sl_ie_9: {
+  //   base: 'SauceLabs',
+  //   browserName: 'internet explorer',
+  //   version: '9'
+  // },
   sl_ie_10: {
     base: 'SauceLabs',
     browserName: 'internet explorer',
